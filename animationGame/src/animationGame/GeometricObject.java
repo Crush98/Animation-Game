@@ -1,18 +1,18 @@
-//3
+package animationGame;
 public class GeometricObject {
 
 	public Vertex pos;
-	public double high;
-	public double with;
+	public double height;
+	public double width;
 	
 	public double getHight()
 	{
-		return high;
+		return height;
 	}
 	
-	public double getWith()
+	public double getWidth()
 	{
-		return with;
+		return width;
 	}
 	
 	public Vertex getPos()
@@ -20,25 +20,102 @@ public class GeometricObject {
 		return pos;
 	}
 
-	public GeometricObject(double high, double with, Vertex pos)
+	public GeometricObject(double height, double width, Vertex pos)
 	{
 		this.pos = pos;
-		this.high = high;
-		this.with = with;
+		this.height = height;
+		this.width = width;
 		
-		if (with < 0)
+		if (width < 0)
 		{
-			with = -with;
-			pos.x = pos.x - with;
+			width = -width;
+			pos.x = pos.x - width;
 		}
 		
-		if (high < 0)
+		if (height < 0)
 		{
-			high = -high;
-			pos.x = pos.x - high;
+			height = -height;
+			pos.x = pos.x - height;
 		}
 	}
 	
+	public GeometricObject(double height, double width)
+	{
+		this(height, width, new Vertex(0,0));
+	}
+	public GeometricObject(double height)
+	{
+		this(height, height);
+	}
+	public GeometricObject()
+	{
+			this(10);
+	}
+	public GeometricObject(Vertex pos) 
+	{
+		this(0,0,pos);
+	}
+	public String toString()
+	{
+		return "width="+width+"height="+height+"position="+pos;
+	}
+	public double cirumference()
+	{
+		return 2*(width+height);
+	}
+	public double area()
+	{
+		return width*height;
+	}
+	public boolean contains(Vertex v)
+	{
+		return v.x >= pos.x && v.x <= pos.x+width && v.y >= pos.y && v.y <=pos.y+height;
+	}
 	
+	public boolean isLargerThan(GeometricObject that)
+	{
+		return that.area() > this.area();
+	}
 	
+	public void moveTo(Vertex pos)
+	{
+		this.pos=pos;
+	}
+
+	public void moveTo(double x, double y)
+	{
+		moveTo(new Vertex(x,y));
+	}
+
+	public void move(Vertex v)
+	{
+		moveTo(pos.add(v));
+	}
+
+	public boolean equals(Object thatObject){
+		if(thatObject instanceof GeometricObject){
+			GeometricObject that = (GeometricObject)thatObject;
+			
+			return that.width==this.width && this.height == that.height 
+					&& this.pos.equals(that.pos);
+		 }
+		return false;
+
+	}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 }

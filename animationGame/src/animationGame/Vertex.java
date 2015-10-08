@@ -81,7 +81,6 @@ public class Vertex {
 	
 	public void setY(double y){this.y=y;}
 	
-
-
+	
 }
 
